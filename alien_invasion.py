@@ -4,13 +4,11 @@ import pygame
 from settings import Settings
 from ship import Ship
 
-
 class AlienInvasion:
     def __init__(self):
         # 初始化 pygame对象
         pygame.init()
         self.settings = Settings()
-
         # 设置屏幕大小
         # set_mode: 屏幕大小设置接口
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
@@ -21,11 +19,16 @@ class AlienInvasion:
     def run_game(self):
         # 开启游戏循环
         while True:
-            # 监听键盘事件
-            for e in pygame.event.get():
-                if e.type == pygame.QUIT:
-                    sys.exit()
+            self._check_events()
+            self._update_screen()
 
+
+    def _check_events(self):
+        for e in pygame.event.get():
+            if e.type == pygame.QUIT:
+                sys.exit()
+
+    def _update_screen(self):
             # 每次循环重绘屏幕
             # fill: 颜色填充接口， 只接受一个颜色
             self.screen.fill(self.settings.bg_color)
