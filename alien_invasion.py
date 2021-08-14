@@ -24,21 +24,27 @@ class AlienInvasion:
             self.ship.update()
             self._update_screen()
 
+    def _check_key_down_event(self, e):
+        dire = Utils.get_the_keyboard_dire(e)
+        if dire:
+            self.ship.start_move(dire)
+
+    def _check_key_up_event(self, e):
+        dire = Utils.get_the_keyboard_dire(e)
+        if dire:
+            self.ship.stop_move(dire)
 
     def _check_events(self):
 
         for e in pygame.event.get():
-            dire = None
             if e.type == pygame.QUIT:
                 sys.exit()
             elif e.type == pygame.KEYDOWN:
-                dire = Utils.get_the_keyboard_dire(e)
-                if dire:
-                    self.ship.start_move(dire)
+                self._check_key_down_event(e)
+
             elif e.type == pygame.KEYUP:
-                dire = Utils.get_the_keyboard_dire(e)
-                if dire:
-                    self.ship.stop_move(dire)
+                self._check_key_up_event(e)
+
 
 
     def _update_screen(self):
