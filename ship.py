@@ -23,16 +23,35 @@ class Ship:
     def blitme(self):
         self.screen.blit(self.image, self.rect)
 
+    def x_dire_move(self, dire):
+        x = None
+        if dire == 'L':
+            x = self.rect.x - self.speed
+        elif dire == 'R':
+            x = self.rect.x + self.speed
+        else:
+            return None
+
+        if x and (self.screen_rect.left < x < self.screen_rect.right - self.rect.width):
+            self.rect.x = x
+
+    def y_dire_move(self, dire):
+        y = None
+        if dire == 'T':
+            y = self.rect.y - self.speed
+        elif dire == 'D':
+            y = self.rect.y + self.speed
+        else:
+            return None
+
+        if y and (self.screen_rect.top < y < self.screen_rect.bottom - self.rect.height):
+            self.rect.y = y
+
+
     def render(self, dire):
         # render logic
-        if dire == 'L':
-            self.rect.x -= self.speed
-        elif dire == 'R':
-            self.rect.x += self.speed
-        elif dire == 'T':
-            self.rect.y -= self.speed
-        elif dire == 'D':
-            self.rect.y += self.speed
+        self.x_dire_move(dire)
+        self.y_dire_move(dire)
         self.blitme()
 
     def update(self):
