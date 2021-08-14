@@ -31,8 +31,10 @@ class AlienInvasion:
     def _update_screen(self):
             # 每次循环重绘屏幕
             # fill: 颜色填充接口， 只接受一个颜色
-            self.screen.fill(self.settings.bg_color)
+            self.screen.fill(self.settings.bg_color,)
+            self.screen.blit(self.settings.bg_image, (0, 0))
             self.ship.blitme()
+
 
             # 重新渲染屏幕（先擦除再渲染）可以表达位置的移动
             # 使屏幕可见
