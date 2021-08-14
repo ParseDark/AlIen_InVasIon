@@ -24,6 +24,15 @@ class AlienInvasion:
             self.ship.update()
             self._update_screen()
 
+    @staticmethod
+    def exit_game():
+        sys.exit()
+
+    def _check_key_down_event(self, e):
+        dire = Utils.get_the_keyboard_dire(e)
+        if dire:
+            self.ship.start_move(dire)
+
     def _check_key_down_event(self, e):
         dire = Utils.get_the_keyboard_dire(e)
         if dire:
@@ -34,6 +43,10 @@ class AlienInvasion:
         if dire:
             self.ship.stop_move(dire)
 
+    def _check_q_exit_game_event(self, e):
+        if Utils.is_q_key(e):
+            self.exit_game()
+
     def _check_events(self):
 
         for e in pygame.event.get():
@@ -41,10 +54,9 @@ class AlienInvasion:
                 sys.exit()
             elif e.type == pygame.KEYDOWN:
                 self._check_key_down_event(e)
-
+                self._check_q_exit_game_event(e)
             elif e.type == pygame.KEYUP:
                 self._check_key_up_event(e)
-
 
 
     def _update_screen(self):
@@ -53,7 +65,6 @@ class AlienInvasion:
             self.screen.fill(self.settings.bg_color,)
             self.screen.blit(self.settings.bg_image, (0, 0))
             self.ship.blitme()
-
 
             # 重新渲染屏幕（先擦除再渲染）可以表达位置的移动
             # 使屏幕可见

@@ -16,3 +16,9 @@ class Utils:
             dire = None
 
         return dire
+
+    @staticmethod
+    def is_q_key(e):
+        if e.key == pygame.K_q:
+            return True
+        return False
