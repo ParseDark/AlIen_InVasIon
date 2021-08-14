@@ -9,6 +9,7 @@ class AlienInvasion:
     def __init__(self):
         # 初始化 pygame对象
         pygame.init()
+
         self.settings = Settings()
         # 设置屏幕大小
         # set_mode: 屏幕大小设置接口
