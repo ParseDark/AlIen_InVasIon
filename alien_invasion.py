@@ -3,6 +3,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
+from utils import Utils
 
 class AlienInvasion:
     def __init__(self):
@@ -20,13 +21,25 @@ class AlienInvasion:
         # 开启游戏循环
         while True:
             self._check_events()
+            self.ship.update()
             self._update_screen()
 
 
     def _check_events(self):
+
         for e in pygame.event.get():
+            dire = None
             if e.type == pygame.QUIT:
                 sys.exit()
+            elif e.type == pygame.KEYDOWN:
+                dire = Utils.get_the_keyboard_dire(e)
+                if dire:
+                    self.ship.start_move(dire)
+            elif e.type == pygame.KEYUP:
+                dire = Utils.get_the_keyboard_dire(e)
+                if dire:
+                    self.ship.stop_move(dire)
+
 
     def _update_screen(self):
             # 每次循环重绘屏幕
