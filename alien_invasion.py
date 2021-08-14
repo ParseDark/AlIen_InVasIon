@@ -28,7 +28,7 @@ class AlienInvasion:
             # fill: 颜色填充接口， 只接受一个颜色
             self.screen.fill(self.settings.bg_color)
 
-            # 重新渲染屏幕（先擦出再渲染）可以表达位置的移动
+            # 重新渲染屏幕（先擦除再渲染）可以表达位置的移动
             # 使屏幕可见
             pygame.display.flip()
 
