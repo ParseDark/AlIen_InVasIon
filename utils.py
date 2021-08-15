@@ -22,3 +22,9 @@ class Utils:
         if e.key == pygame.K_q:
             return True
         return False
+
+    @staticmethod
+    def is_blank_key(e):
+        if e.key == pygame.K_SPACE:
+            return True
+        return False
