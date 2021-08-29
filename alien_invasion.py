@@ -36,8 +36,11 @@ class AlienInvasion:
         # 开启游戏循环
         while True:
             self._check_events()
-            self.ship.update()
-            self._update_screen()
+
+            if self.stats.game_activate:
+                self.ship.update()
+                self._update_screen()
+
 
 
     @staticmethod
