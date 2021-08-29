@@ -5,6 +5,7 @@ from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from utils import Utils
+from alien import Alien
 
 class AlienInvasion:
     def __init__(self):
@@ -19,6 +20,8 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+        self._create_fleet()
 
     def run_game(self):
         # 开启游戏循环
@@ -30,6 +33,20 @@ class AlienInvasion:
     @staticmethod
     def exit_game():
         sys.exit()
+
+    def _create_fleet(self):
+        alien = Alien(self)
+        alien_width = alien.rect.width
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
+        print(number_aliens_x)
+        for alien_number in range(number_aliens_x):
+            alien = Alien(self)
+            alien.x = alien_width + 2 * alien_width * alien_number
+            alien.rect.x = alien.x
+            self.aliens.add(alien)
+
+        self.aliens.add(alien)
 
     def _check_key_down_event(self, e):
         dire = Utils.get_the_keyboard_dire(e)
@@ -72,6 +89,9 @@ class AlienInvasion:
 
         self.bullets.update()
 
+    def _render_alien(self):
+        self.aliens.draw(self.screen)
+
 
     def _update_screen(self):
             # 每次循环重绘屏幕
@@ -80,7 +100,7 @@ class AlienInvasion:
             self.screen.blit(self.settings.bg_image, (0, 0))
             self.ship.blitme()
             self._update_bullets()
-
+            self._render_alien()
 
             # 重新渲染屏幕（先擦除再渲染）可以表达位置的移动
             # 使屏幕可见
