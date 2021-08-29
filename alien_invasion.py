@@ -15,6 +15,7 @@ class AlienInvasion:
         pygame.init()
 
         self.settings = Settings()
+        self.reset_stats()
         # 设置屏幕大小
         # set_mode: 屏幕大小设置接口
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
@@ -187,5 +188,8 @@ class AlienInvasion:
             # 重新渲染屏幕（先擦除再渲染）可以表达位置的移动
             # 使屏幕可见
             pygame.display.flip()
+
+    def reset_stats(self):
+        self.stats = GameState(self)
 
 
