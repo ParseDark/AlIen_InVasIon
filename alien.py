@@ -14,3 +14,7 @@ class Alien(Sprite):
 
         self.x = float(self.rect.x)
 
+    def update(self, *args, **kwargs) -> None:
+        """move to right"""
+        self.x += self.settings.alien_speed
+        self.rect.x = self.x

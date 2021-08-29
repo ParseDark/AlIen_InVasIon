@@ -102,6 +102,9 @@ class AlienInvasion:
 
         self.bullets.update()
 
+    def _update_aliens(self):
+        self.aliens.update()
+
     def _render_alien(self):
         self.aliens.draw(self.screen)
 
@@ -114,6 +117,7 @@ class AlienInvasion:
             self.ship.blitme()
             self._update_bullets()
             self._render_alien()
+            self._update_aliens()
 
             # 重新渲染屏幕（先擦除再渲染）可以表达位置的移动
             # 使屏幕可见
