@@ -30,6 +30,7 @@ class AlienInvasion:
             self.ship.update()
             self._update_screen()
 
+
     @staticmethod
     def exit_game():
         sys.exit()
@@ -42,12 +43,6 @@ class AlienInvasion:
         available_space_y = (self.settings.screen_height - (2 * alien_height) - ship_height)
         number_rows = available_space_y // (2 * alien_height)
         number_aliens_x = available_space_x // alien_width
-        print("alien, width, height", alien_width, alien_height)
-        print("alien_height", alien_height)
-        print("available_space_y", available_space_y)
-        print("number_rows", number_rows)
-        print("number_aliens_x", number_aliens_x)
-
         # 创建外星人群
         for raw_number in range(number_rows):
             for alien_number in range(number_aliens_x):
@@ -60,6 +55,19 @@ class AlienInvasion:
         alien.rect.x = alien.x
         alien.rect.y = alien.rect.height + alien.rect.height * row_number
         self.aliens.add(alien)
+
+    def _check_fleet_edges(self):
+        """when alien hit the screen edge will change the group direction"""
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        print("in the edge")
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+            self.settings.fleet_direction *= -1
 
     def _check_key_down_event(self, e):
         dire = Utils.get_the_keyboard_dire(e)
@@ -103,6 +111,7 @@ class AlienInvasion:
         self.bullets.update()
 
     def _update_aliens(self):
+        self._check_fleet_edges()
         self.aliens.update()
 
     def _render_alien(self):
