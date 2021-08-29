@@ -8,6 +8,7 @@ from utils import Utils
 from alien import Alien
 from game_stats import GameState
 from time import sleep
+from button import Button
 
 class AlienInvasion:
     def __init__(self):
@@ -32,16 +33,24 @@ class AlienInvasion:
         # init the aliens
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
+        # create the play game button
+        self.play_button = Button(self, 'Play')
 
     def run_game(self):
         # 开启游戏循环
         while True:
             self._check_events()
+            self.screen.fill(self.settings.bg_color, )
+            self.screen.blit(self.settings.bg_image, (0, 0))
 
             if self.stats.game_activate:
+                self.ship.blitme()
                 self.ship.update()
-                self._update_screen()
+                self._update_bullets()
+                self._render_alien()
+                self._update_aliens()
 
+            self._update_screen()
 
 
     @staticmethod
@@ -178,12 +187,9 @@ class AlienInvasion:
     def _update_screen(self):
             # 每次循环重绘屏幕
             # fill: 颜色填充接口， 只接受一个颜色
-            self.screen.fill(self.settings.bg_color,)
-            self.screen.blit(self.settings.bg_image, (0, 0))
-            self.ship.blitme()
-            self._update_bullets()
-            self._render_alien()
-            self._update_aliens()
+            # if the game_activate is false will render button
+            if not self.stats.game_activate:
+                self.play_button.draw_button()
 
             # 重新渲染屏幕（先擦除再渲染）可以表达位置的移动
             # 使屏幕可见
