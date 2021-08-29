@@ -68,5 +68,12 @@ class Ship:
         if dire is not None:
             self.dire[dire] = False
 
+    def center_ship(self):
+        """put the ship on screen bottom center"""
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
+
+
+
 
 
