@@ -142,20 +142,21 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """when ship hit the alien"""
+        if self.stats.ships_left > 0:
+            # limit reduce 1
+            self.stats.ships_left -= 1
 
-        # limit reduce 1
-        self.stats.ships_left -= 1
+            # clean the rest bullets and aliens
+            self.aliens.empty()
+            self.bullets.empty()
 
-        # clean the rest bullets and aliens
-        self.aliens.empty()
-        self.bullets.empty()
+            # create a new group aliens and init the ship
+            self._create_fleet()
+            self.ship.center_ship()
 
-        # create a new group aliens and init the ship
-        self._create_fleet()
-        self.ship.center_ship()
-
-        sleep(0.5)
-
+            sleep(0.5)
+        else:
+            self.stats.game_activate = False
 
     def _update_aliens(self):
         self._check_fleet_edges()
