@@ -67,8 +67,8 @@ class AlienInvasion:
         print("in the edge")
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
-            self.settings.fleet_direction *= -1
-            break
+
+        self.settings.fleet_direction *= -1
 
     def _check_key_down_event(self, e):
         dire = Utils.get_the_keyboard_dire(e)
@@ -103,15 +103,24 @@ class AlienInvasion:
                 self._check_key_up_event(e)
 
     def _update_bullets(self):
+        # remove out of screen bullets
         for bullet in self.bullets.sprites():
             if bullet.should_delete_it():
                 self.bullets.remove(bullet)
             else:
                 bullet.draw_bullet()
 
-        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        self._check_bullet_alien_collisions()
 
         self.bullets.update()
+
+    def _check_bullet_alien_collisions(self):
+        """will remove bullet and alien when bullet collisions with alien"""
+        if not self.aliens:
+            self.bullets.empty()
+            self._create_fleet()
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+
 
     def _update_aliens(self):
         self._check_fleet_edges()
