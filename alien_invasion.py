@@ -1,5 +1,4 @@
 import sys
-
 import pygame
 from settings import Settings
 from ship import Ship
@@ -16,7 +15,6 @@ class AlienInvasion:
         pygame.init()
 
         self.settings = Settings()
-        self.reset_stats()
         # 设置屏幕大小
         # set_mode: 屏幕大小设置接口
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
@@ -86,7 +84,6 @@ class AlienInvasion:
                 break
 
     def _change_fleet_direction(self):
-        print("in the edge")
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
 
@@ -112,6 +109,13 @@ class AlienInvasion:
             if len(self.bullets) < self.settings.bullet_allow_count:
                 self.bullets.add(new_bullet)
 
+    def _check_play_game_button_event(self):
+        mouse_pos = pygame.mouse.get_pos()
+        if self.play_button.rect.collidepoint(mouse_pos) and not self.stats.game_activate:
+            print('click play game')
+            self.reset_stats()
+            pygame.mouse.set_visible(False)
+
     def _check_events(self):
 
         for e in pygame.event.get():
@@ -123,6 +127,8 @@ class AlienInvasion:
                 self._check_blank_fire_event(e)
             elif e.type == pygame.KEYUP:
                 self._check_key_up_event(e)
+            elif e.type == pygame.MOUSEBUTTONDOWN:
+                self._check_play_game_button_event()
 
     def _update_bullets(self):
         # remove out of screen bullets
@@ -170,6 +176,7 @@ class AlienInvasion:
             sleep(0.5)
         else:
             self.stats.game_activate = False
+            pygame.mouse.set_visible(True)
 
     def _update_aliens(self):
         self._check_fleet_edges()
@@ -196,6 +203,15 @@ class AlienInvasion:
             pygame.display.flip()
 
     def reset_stats(self):
-        self.stats = GameState(self)
+        # reset state
+        self.stats.reset_stats()
+        self.stats.game_activate = True
 
+        # reset the sprite
+        self.aliens.empty()
+        self.bullets.empty()
+
+        # reset the ship and alien
+        self._create_fleet()
+        self.ship.center_ship()
 
