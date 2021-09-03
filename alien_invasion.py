@@ -175,6 +175,7 @@ class AlienInvasion:
         if self.stats.ships_left > 0:
             # limit reduce 1
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
 
             # clean the rest bullets and aliens
             self.aliens.empty()
