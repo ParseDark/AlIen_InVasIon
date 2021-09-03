@@ -8,6 +8,7 @@ from alien import Alien
 from game_stats import GameState
 from time import sleep
 from button import Button
+from scoreboard import Scoreboard
 
 class AlienInvasion:
     def __init__(self):
@@ -23,6 +24,9 @@ class AlienInvasion:
 
         # init the GameState
         self.stats = GameState(self)
+
+        # init the scoreboard class
+        self.sb = Scoreboard(self)
 
         # init the ship
         self.ship = Ship(self)
@@ -42,6 +46,7 @@ class AlienInvasion:
             self.screen.blit(self.settings.bg_image, (0, 0))
 
             if self.stats.game_activate:
+                self.sb.show_score()
                 self.ship.blitme()
                 self.ship.update()
                 self._update_bullets()
