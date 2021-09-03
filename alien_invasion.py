@@ -147,6 +147,7 @@ class AlienInvasion:
         if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
+            self.settings.inscreese_speed()
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
     def _check_aliens_bottom(self):
@@ -214,4 +215,7 @@ class AlienInvasion:
         # reset the ship and alien
         self._create_fleet()
         self.ship.center_ship()
+
+        # reset the speed setting
+        self.settings.initialize_dynamic_settings()
 
