@@ -8,10 +8,10 @@ class Utils:
             dire = 'R'
         elif e.key == pygame.K_LEFT:
             dire = 'L'
-        elif e.key == pygame.K_UP:
-            dire = 'T'
-        elif e.key == pygame.K_DOWN:
-            dire = 'D'
+        # elif e.key == pygame.K_UP:
+        #     dire = 'T'
+        # elif e.key == pygame.K_DOWN:
+        #     dire = 'D'
         else:
             dire = None
 

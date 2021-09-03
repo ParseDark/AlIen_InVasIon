@@ -9,10 +9,11 @@ class Ship(Sprite):
         self.image = pygame.image.load("images/ghost.png")
         self.rect = self.image.get_rect()
         self.rect.midbottom = self.screen_rect.midbottom
+        self.settings = ai_game.settings
 
         # move props
         self.enable_update = False
-        self.speed = 15
+        self.speed = self.settings.ship_speed
         self.dire = {
             'L': False,
             'R': False,

@@ -25,7 +25,7 @@ class Settings:
 
         # ship setting
         self.ship_limit = 3
-        self.ship_speed = 1.5
+        self.ship_speed = 15
 
         # boostrap the game speed.
         self.speedup_scale = 1.1
@@ -37,7 +37,7 @@ class Settings:
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
-        self.ship_speed = 2
+        self.ship_speed = 15
         self.bullet_speed = 10.0
         self.alien_speed = 5.0
 
