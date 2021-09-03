@@ -154,6 +154,11 @@ class AlienInvasion:
             self._create_fleet()
             self.settings.inscreese_speed()
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        if collisions:
+            for alien in collisions.values():
+                self.stats.score += self.settings.alien_points * len(alien)
+
+            self.sb.prep_score()
 
     def _check_aliens_bottom(self):
         """check the alien is screen bottom?"""
@@ -212,6 +217,7 @@ class AlienInvasion:
         # reset state
         self.stats.reset_stats()
         self.stats.game_activate = True
+        self.sb.prep_score()
 
         # reset the sprite
         self.aliens.empty()

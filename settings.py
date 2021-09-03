@@ -29,6 +29,10 @@ class Settings:
 
         # boostrap the game speed.
         self.speedup_scale = 1.1
+        self.scoreup_scale = 2
+
+        # an alien socre
+        self.alien_points = 1
 
         self.initialize_dynamic_settings()
 
@@ -45,4 +49,6 @@ class Settings:
         self.ship_speed *= self.speedup_scale
         self.bullet_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
+
+        self.alien_points = int(self.alien_points * self.scoreup_scale)
 
